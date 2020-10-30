@@ -10,7 +10,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const fs = require('fs')
 const cors = require('cors')
 const corsOptions = {
-    origin: ['http://localhost:3000 ', "https://kirillserebrykov.github.io"]// домен сервиса, с которого будут приниматься запросы
+    origin: ['http://localhost:3000 ', "https://kirillserebrykov.github.io"],// домен сервиса, с которого будут приниматься запросы
     optionsSuccessStatus: 200 // для старых браузеров
 }
 app.use(cors(corsOptions));
