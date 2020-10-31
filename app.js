@@ -10,7 +10,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const fs = require('fs')
 const cors = require('cors')
 const corsOptions = {
-    origin: false,// домен сервиса, с которого будут приниматься запросы
+    origin: "*",// домен сервиса, с которого будут приниматься запросы
     optionsSuccessStatus: 200 // для старых браузеров
 }
 app.use(cors(corsOptions));
