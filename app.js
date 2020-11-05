@@ -103,11 +103,14 @@ let getFail = (name ,path) =>{
         res.sendFile(__dirname + "/" + path);
     })
 }
-app.post('/parser',jsonParser,cors(corsOptions), function (req, res,next) {
+app.post('/parser' ,jsonParser,cors(corsOptions) ,function (req, res,next) {
 
     let listNews = []
 
-
+    function checkUserAuth(req, res, next) {
+        if (req.session.user) return next();
+        return next(new NotAuthorizedError());
+    }
     let parse
     let str
     let str2
@@ -128,7 +131,7 @@ app.post('/parser',jsonParser,cors(corsOptions), function (req, res,next) {
                 let   firstElem = $(this).get()
                 str =$(this).text()
                 str2 =$(firstElem).attr('href')
-              
+
                 //listNews.url =str2
                 //listNews.title = str
                 listNews.push(str2)
