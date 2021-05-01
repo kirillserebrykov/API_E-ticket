@@ -34,7 +34,7 @@ var jsonParser = bodyParser.json();
 
 
 
-app.get('/getCart',cors(corsOptions) ,(req, res,err) => {
+app.get('/getCart' ,(req, res,err) => {
   const queryObject = url.parse(req.url,true).query;
 
  let fancmap = () =>{
