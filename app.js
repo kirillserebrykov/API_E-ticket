@@ -1,17 +1,9 @@
 const express = require('express');
-const mysql = require('mysql2/promise');
-const puppeteer = require('puppeteer');
-const $ = require('cheerio');
-const urlWeb = 'https://www.city.kharkov.ua/ru/';
 const url = require('url');
 const port = process.env.PORT || 6080
-var path = require('path');
+const path = require('path');
 const app = express();
 const bodyParser = require('body-parser');
-const config = require('./config')
-
-
-const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const fs = require('fs')
 const cors = require('cors')
 const corsOptions = {
@@ -30,7 +22,7 @@ const dataCart = [{
     "balans": 20
   }
 }]
-var jsonParser = bodyParser.json();
+let jsonParser = bodyParser.json();
 
 
 
@@ -46,10 +38,7 @@ app.get('/getCart' ,(req, res,err) => {
               res.end( JSON.stringify(el[queryObject.cart]))
           }
 
-          else {
-
-
-          }
+          else {  }
 
       }catch (e ){res.end(JSON.stringify({error: "Error" , status : 'red',}))}
 
@@ -60,10 +49,8 @@ app.get('/getCart' ,(req, res,err) => {
     res.end('Api E-ticket')
 
 })
-app.put('/putBalansCart',jsonParser,cors(corsOptions), function (req, res) {
-
+app.put('/putBalansCart',jsonParser, function (req, res) {
     let editCartData = (req,res) =>{
-
         let IDcart = dataCart.map(function(el) {
 
                 if (req.body['0436662A5F6A80'].balans > 500) {
@@ -71,19 +58,8 @@ app.put('/putBalansCart',jsonParser,cors(corsOptions), function (req, res) {
                     return
                 }
               else {el['0436662A5F6A80'].balans =  el['0436662A5F6A80'].balans - req.body['0436662A5F6A80'].balans}
-
-
-
-
-
-
-
-            console.log()
             res.end(JSON.stringify(el['0436662A5F6A80']))
-        }
-        )
-    }
-
+        })}
         editCartData(req,res)
 })
 
@@ -103,65 +79,7 @@ let getFail = (name ,path) =>{
         res.sendFile(__dirname + "/" + path);
     })
 }
-app.post('/parser' ,jsonParser,cors(corsOptions) ,function (req, res,next) {
 
-    let listNews = []
-
-    function checkUserAuth(req, res, next) {
-        if (req.session.user) return next();
-        return next(new NotAuthorizedError());
-    }
-    let parse
-    let str
-    let str2
-    puppeteer.launch()
-        .then(function(browser) {
-            return browser.newPage();
-        })
-        .then(function(page) {
-            return page.goto(urlWeb).then(function() {
-                return page.content();
-            });
-        })
-        .then(  function(html) {
-
-
-
-            $('a.name', html).each( async  function () {
-                let   firstElem = $(this).get()
-                str =$(this).text()
-                str2 =$(firstElem).attr('href')
-
-                //listNews.url =str2
-                //listNews.title = str
-                listNews.push(str2)
-
-
-
-                    console.log(listNews)
-
-
-
-
-
-
-
-
-            })
-
-
-
-        }) .then(()=>{
-        res.end(JSON.stringify(listNews))
-
-    })
-
-
-        .catch(function(err) {
-            //handle error
-        })
-
-})
 
 getFail('main.js',"doc/main.js")
 getFail('','/doc/index.html')
