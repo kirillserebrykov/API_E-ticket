@@ -72,7 +72,7 @@ app.post('/postEditBalansCart',jsonParser,cors(corsOptions), function (req, res)
                     res.end(JSON.stringify(el['0436662A5F6A80']))})}
                 editCartData(req,res)})
 
-
+app.options('*', cors()) 
 
 let getFail = (name ,path) =>{
     app.get('/'+ name , function(req, res) {
