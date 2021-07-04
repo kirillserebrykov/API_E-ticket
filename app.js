@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const fs = require('fs')
 const cors = require('cors')
 const corsOptions = {
-    origin: "kirillserebrykov.github.io",// домен сервиса, с которого будут приниматься запросы
+    origin: "https://kirillserebrykov.github.io/",// домен сервиса, с которого будут приниматься запросы
     optionsSuccessStatus: 200 // для старых браузеров
 }
 
