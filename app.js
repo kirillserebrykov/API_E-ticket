@@ -63,7 +63,7 @@ app.put('/putBalansCart',jsonParser, function (req, res) {
         editCartData(req,res)
 })
 
-app.post('/postEditBalansCart',jsonParser,cors(corsOptions), function (req, res) {
+app.post('/postEditBalansCart',jsonParser, function (req, res) {
 
         let editCartData = (req,res) =>{
             let IDcart = dataCart.map(function(el) {
@@ -72,7 +72,7 @@ app.post('/postEditBalansCart',jsonParser,cors(corsOptions), function (req, res)
                     res.end(JSON.stringify(el['0436662A5F6A80']))})}
                 editCartData(req,res)})
 
-app.options('*', cors()) 
+
 
 let getFail = (name ,path) =>{
     app.get('/'+ name , function(req, res) {
